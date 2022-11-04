@@ -1,0 +1,682 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<script src="jquery-3.6.1.js" type="text/javascript"></script>
+	<style>
+		* {
+		box-sizing: border-box;
+		padding: 0;
+		margin: 0;
+	}
+	body {
+		text-align: center;
+		font: Times;
+		background-color: #746869;
+		color: #FF0004;
+		background-image: url("background.jpg");
+		background-repeat: no-repeat;
+  		background-attachment: fixed;
+  		background-position: center;
+		text-shadow: 1px 0 0 #000, 0 -1px 0 #000, 0 1px 0 #000, -1px 0 0 #000;
+	}
+	table, td {
+		border:1px solid #FF0004;
+		background-color: #000000;
+		color: #FF0004;
+	}
+	table {
+		margin: auto;
+	}
+	button {
+		background-color: #000000;
+		color: #FF0004;
+		border:2px solid #FF0004;
+		height: 50px;
+		width: 100px;
+		transition: .3s ease all;
+		font-weight: bolder;
+	}
+	button:hover {
+	color: #000000;
+	background-color: #FF0004;
+	transition: .3s ease all;
+	border:2px solid #000000;
+	}
+		select {
+		color: #FF0004;
+		border:2px solid #FF0004;
+		height: 25px;
+		background-color: #000000;
+			transition: .3s ease all;
+	}
+	</style>
+<title>ApiFun</title>
+	<script>
+		function getQuote() {
+			const fetchRandApiQuote = fetch("https://api.gameofthronesquotes.xyz/v1/random/1");
+			fetchRandApiQuote.then(textify);
+		}
+		function textify(quote) {
+			let quoteText = quote.json();
+			quoteText.then(write);
+		}
+		function write(quoteJson) {
+			document.getElementById("quoteHere").innerHTML = quoteJson.sentence;
+			document.getElementById("author").innerHTML = quoteJson.character.name;
+		}
+		function getSpecificQuote() {
+			const fetchCharacters = fetch("https://api.gameofthronesquotes.xyz/v1/characters");
+			fetchCharacters.then(jsonify);
+		}
+		function jsonify(characters) {
+			let charactersJson = characters.json();
+			charactersJson.then(search);
+		}
+		function search(charactersJSON) {
+			let speakerName = document.getElementById("speaker").value;
+			for (let i = 0; i < charactersJSON.length; i++) {
+				if (charactersJSON[i].name == speakerName) {
+					document.getElementById("quoteHere").innerHTML = "";
+					for (let j = 0; j < charactersJSON[i].quotes.length; j++) {
+						document.getElementById("quoteHere").innerHTML += charactersJSON[i].quotes[j];
+						document.getElementById("quoteHere").innerHTML += "<br>";
+					}
+				}
+			}
+			if (speakerName == "Brienne of Tharth") {
+				document.getElementById("author").innerHTML = "Brienne of Tarth";
+			} else {
+				document.getElementById("author").innerHTML = speakerName;
+
+			}
+		}
+		function getCharacter() {
+			var findThem = document.getElementById("chararcter").value;
+			if (findThem == "Jon Snow") {
+				getJonSnow();
+			}
+			if (findThem == "Sansa Stark") {
+				getSansaStark();
+			}
+			if (findThem == "Eddard Stark") {
+				getNedStark();
+			}
+			if (findThem == "Catelyn Stark") {
+				getCat();
+			}
+			if (findThem == "Arya Stark") {
+				getArya();
+			}
+			if (findThem == "Bran Stark") {
+				getBran();
+			}
+			if (findThem == "Jaime Lannister") {
+				getJaime();
+			}
+			if (findThem == "Tyrion Lannister") {
+				getTyrion();
+			}
+			if (findThem == "Tywin Lannister") {
+				getTywin();
+			}
+			if (findThem == "Joffrey Baratheon") {
+				getJoffrey();
+			}
+			if (findThem == "Aerys II Targaryen") {
+				getAerys();
+			}
+			if (findThem == "Aemon Targaryen") {
+				getAemon();
+			}
+			if (findThem == "Daenerys Targaryen") {
+				getDaenerys();
+			}
+			if (findThem == "Ramsey Bolton") {
+				getRamsey();
+			}
+			if (findThem == "Robert Baratheon") {
+				getRobert();
+			}
+			if (findThem == "Theon Greyjoy") {
+				getTheon();
+			}
+			if (findThem == "Samwell Tarly") {
+				getSam();
+			}
+			if (findThem == "Lord Varys") {
+				getVarys();
+			}
+			if (findThem == "Brienne of Tarth") {
+				getBrienne();
+			}
+			if (findThem == "Petyr Baelish") {
+				getPetyr();
+			}
+			if (findThem == "Tormund") {
+				getTormund();
+			}
+			if (findThem == "Melisandre") {
+				getMel();
+			}
+			if (findThem == "Olenna Tyrell") {
+				getOlenna();
+			}
+			if (findThem == "Mance Rayder") {
+				getMance();
+			}
+			if (findThem == "Ygritte") {
+				getY();
+			}
+		}
+		function getJonSnow(){
+			var request = new XMLHttpRequest();
+			request.onreadystatechange = function(){
+			
+				if(request.readyState == 4){
+					//the request is completed, now check its status
+					if(request.status == 200){
+						var jonSnowJson = JSON.parse(request.responseText);
+						writeJson(jonSnowJson);
+					}
+				}
+			}
+			request.open('GET', 'https://anapioficeandfire.com/api/characters/583');
+			request.send();
+		}
+		function getSansaStark(){
+			var request = new XMLHttpRequest();
+			request.onreadystatechange = function(){
+			
+				if(request.readyState == 4){
+					//the request is completed, now check its status
+					if(request.status == 200){
+						var Json = JSON.parse(request.responseText);
+						writeJson(Json);
+					}
+				}
+			}
+			request.open('GET', 'https://anapioficeandfire.com/api/characters/957');
+			request.send();
+		}
+		function getNedStark(){
+			var request = new XMLHttpRequest();
+			request.onreadystatechange = function(){
+			
+				if(request.readyState == 4){
+					//the request is completed, now check its status
+					if(request.status == 200){
+						var Json = JSON.parse(request.responseText);
+						writeJson(Json);
+					}
+				}
+			}
+			request.open('GET', 'https://anapioficeandfire.com/api/characters/339');
+			request.send();
+		}
+		function getCat(){
+			var request = new XMLHttpRequest();
+			request.onreadystatechange = function(){
+			
+				if(request.readyState == 4){
+					//the request is completed, now check its status
+					if(request.status == 200){
+						var Json = JSON.parse(request.responseText);
+						writeJson(Json);
+					}
+				}
+			}
+			request.open('GET', 'https://anapioficeandfire.com/api/characters/232');
+			request.send();
+		}
+		function getArya(){
+			var request = new XMLHttpRequest();
+			request.onreadystatechange = function(){
+			
+				if(request.readyState == 4){
+					//the request is completed, now check its status
+					if(request.status == 200){
+						var Json = JSON.parse(request.responseText);
+						writeJson(Json);
+					}
+				}
+			}
+			request.open('GET', 'https://anapioficeandfire.com/api/characters/148');
+			request.send();
+		}
+		function getBran(){
+			var request = new XMLHttpRequest();
+			request.onreadystatechange = function(){
+			
+				if(request.readyState == 4){
+					//the request is completed, now check its status
+					if(request.status == 200){
+						var Json = JSON.parse(request.responseText);
+						writeJson(Json);
+					}
+				}
+			}
+			request.open('GET', 'https://anapioficeandfire.com/api/characters/208');
+			request.send();
+		}
+		function getJaime(){
+			var request = new XMLHttpRequest();
+			request.onreadystatechange = function(){
+			
+				if(request.readyState == 4){
+					//the request is completed, now check its status
+					if(request.status == 200){
+						var Json = JSON.parse(request.responseText);
+						writeJson(Json);
+					}
+				}
+			}
+			request.open('GET', 'https://anapioficeandfire.com/api/characters/529');
+			request.send();
+		}
+		function getTyrion(){
+			var request = new XMLHttpRequest();
+			request.onreadystatechange = function(){
+			
+				if(request.readyState == 4){
+					//the request is completed, now check its status
+					if(request.status == 200){
+						var Json = JSON.parse(request.responseText);
+						writeJson(Json);
+					}
+				}
+			}
+			request.open('GET', 'https://anapioficeandfire.com/api/characters/1052');
+			request.send();
+		}
+		function getTywin(){
+			var request = new XMLHttpRequest();
+			request.onreadystatechange = function(){
+			
+				if(request.readyState == 4){
+					//the request is completed, now check its status
+					if(request.status == 200){
+						var Json = JSON.parse(request.responseText);
+						writeJson(Json);
+					}
+				}
+			}
+			request.open('GET', 'https://anapioficeandfire.com/api/characters/27');
+			request.send();
+		}
+		function getJoffrey(){
+			var request = new XMLHttpRequest();
+			request.onreadystatechange = function(){
+			
+				if(request.readyState == 4){
+					//the request is completed, now check its status
+					if(request.status == 200){
+						var Json = JSON.parse(request.responseText);
+						writeJson(Json);
+					}
+				}
+			}
+			request.open('GET', 'https://anapioficeandfire.com/api/characters/565');
+			request.send();
+		}
+		function getAerys(){
+			var request = new XMLHttpRequest();
+			request.onreadystatechange = function(){
+			
+				if(request.readyState == 4){
+					//the request is completed, now check its status
+					if(request.status == 200){
+						var Json = JSON.parse(request.responseText);
+						writeJson(Json);
+					}
+				}
+			}
+			request.open('GET', 'https://anapioficeandfire.com/api/characters/62');
+			request.send();
+		}
+		function getVarys(){
+			var request = new XMLHttpRequest();
+			request.onreadystatechange = function(){
+			
+				if(request.readyState == 4){
+					//the request is completed, now check its status
+					if(request.status == 200){
+						var Json = JSON.parse(request.responseText);
+						writeJson(Json);
+					}
+				}
+			}
+			request.open('GET', 'https://anapioficeandfire.com/api/characters/62');
+			request.send();
+		}
+		function getSam(){
+			var request = new XMLHttpRequest();
+			request.onreadystatechange = function(){
+			
+				if(request.readyState == 4){
+					//the request is completed, now check its status
+					if(request.status == 200){
+						var Json = JSON.parse(request.responseText);
+						writeJson(Json);
+					}
+				}
+			}
+			request.open('GET', 'https://anapioficeandfire.com/api/characters/954');
+			request.send();
+		}
+		function getRobert(){
+			var request = new XMLHttpRequest();
+			request.onreadystatechange = function(){
+			
+				if(request.readyState == 4){
+					//the request is completed, now check its status
+					if(request.status == 200){
+						var Json = JSON.parse(request.responseText);
+						writeJson(Json);
+					}
+				}
+			}
+			request.open('GET', 'https://anapioficeandfire.com/api/characters/901');
+			request.send();
+		}
+		function getVarys(){
+			var request = new XMLHttpRequest();
+			request.onreadystatechange = function(){
+			
+				if(request.readyState == 4){
+					//the request is completed, now check its status
+					if(request.status == 200){
+						var Json = JSON.parse(request.responseText);
+						writeJson(Json);
+					}
+				}
+			}
+			request.open('GET', 'https://www.anapioficeandfire.com/api/characters/2069');
+			request.send();
+		}
+		function getAemon(){
+			var request = new XMLHttpRequest();
+			request.onreadystatechange = function(){
+			
+				if(request.readyState == 4){
+					//the request is completed, now check its status
+					if(request.status == 200){
+						var Json = JSON.parse(request.responseText);
+						writeJson(Json);
+					}
+				}
+			}
+			request.open('GET', 'https://anapioficeandfire.com/api/characters/54');
+			request.send();
+		}
+		function getDaenerys(){
+			var request = new XMLHttpRequest();
+			request.onreadystatechange = function(){
+			
+				if(request.readyState == 4){
+					//the request is completed, now check its status
+					if(request.status == 200){
+						var Json = JSON.parse(request.responseText);
+						writeJson(Json);
+					}
+				}
+			}
+			request.open('GET', 'https://anapioficeandfire.com/api/characters/1303');
+			request.send();
+		}
+		function getTheon(){
+			var request = new XMLHttpRequest();
+			request.onreadystatechange = function(){
+			
+				if(request.readyState == 4){
+					//the request is completed, now check its status
+					if(request.status == 200){
+						var Json = JSON.parse(request.responseText);
+						writeJson(Json);
+					}
+				}
+			}
+			request.open('GET', 'https://anapioficeandfire.com/api/characters/1022');
+			request.send();
+		}
+		function getRamsey(){
+			var request = new XMLHttpRequest();
+			request.onreadystatechange = function(){
+			
+				if(request.readyState == 4){
+					//the request is completed, now check its status
+					if(request.status == 200){
+						var Json = JSON.parse(request.responseText);
+						writeJson(Json);
+					}
+				}
+			}
+			request.open('GET', 'https://anapioficeandfire.com/api/characters/849');
+			request.send();
+		}
+		function getBrienne(){
+			var request = new XMLHttpRequest();
+			request.onreadystatechange = function(){
+			
+				if(request.readyState == 4){
+					//the request is completed, now check its status
+					if(request.status == 200){
+						var Json = JSON.parse(request.responseText);
+						writeJson(Json);
+					}
+				}
+			}
+			request.open('GET', 'https://anapioficeandfire.com/api/characters/216');
+			request.send();
+		}
+		function getPetyr(){
+			var request = new XMLHttpRequest();
+			request.onreadystatechange = function(){
+			
+				if(request.readyState == 4){
+					//the request is completed, now check its status
+					if(request.status == 200){
+						var Json = JSON.parse(request.responseText);
+						writeJson(Json);
+					}
+				}
+			}
+			request.open('GET', 'https://anapioficeandfire.com/api/characters/823');
+			request.send();
+		}
+		function getTormund(){
+			var request = new XMLHttpRequest();
+			request.onreadystatechange = function(){
+			
+				if(request.readyState == 4){
+					//the request is completed, now check its status
+					if(request.status == 200){
+						var Json = JSON.parse(request.responseText);
+						writeJson(Json);
+					}
+				}
+			}
+			request.open('GET', 'https://anapioficeandfire.com/api/characters/2024');
+			request.send();
+		}
+		function getMel(){
+			var request = new XMLHttpRequest();
+			request.onreadystatechange = function(){
+			
+				if(request.readyState == 4){
+					//the request is completed, now check its status
+					if(request.status == 200){
+						var Json = JSON.parse(request.responseText);
+						writeJson(Json);
+					}
+				}
+			}
+			request.open('GET', 'https://anapioficeandfire.com/api/characters/743');
+			request.send();
+		}
+		function getY(){
+			var request = new XMLHttpRequest();
+			request.onreadystatechange = function(){
+			
+				if(request.readyState == 4){
+					//the request is completed, now check its status
+					if(request.status == 200){
+						var Json = JSON.parse(request.responseText);
+						writeJson(Json);
+					}
+				}
+			}
+			request.open('GET', 'https://anapioficeandfire.com/api/characters/2126');
+			request.send();
+		}
+		function getOlenna(){
+			var request = new XMLHttpRequest();
+			request.onreadystatechange = function(){
+			
+				if(request.readyState == 4){
+					//the request is completed, now check its status
+					if(request.status == 200){
+						var Json = JSON.parse(request.responseText);
+						writeJson(Json);
+					}
+				}
+			}
+			request.open('GET', 'https://anapioficeandfire.com/api/characters/784');
+			request.send();
+		}
+		function getMance(){
+			var request = new XMLHttpRequest();
+			request.onreadystatechange = function(){
+			
+				if(request.readyState == 4){
+					//the request is completed, now check its status
+					if(request.status == 200){
+						var Json = JSON.parse(request.responseText);
+						writeJson(Json);
+					}
+				}
+			}
+			request.open('GET', 'https://anapioficeandfire.com/api/characters/1666');
+			request.send();
+		}
+	function writeJson(JSONFile) {
+		document.getElementById("Name").innerHTML = "Name: <br>";
+		document.getElementById("Name").innerHTML += JSONFile.name;
+		document.getElementById("Gender").innerHTML = "Gender: <br>";
+		document.getElementById("Gender").innerHTML += JSONFile.gender;
+		document.getElementById("Dates").innerHTML = "Born: <br>";
+		document.getElementById("Dates").innerHTML += JSONFile.born;
+		if (JSONFile.died != "") {
+			document.getElementById("Dates").innerHTML += "<br> Died: <br>";
+			document.getElementById("Dates").innerHTML += JSONFile.died;
+		}
+		document.getElementById("Titles").innerHTML = "Title(s): <br>";
+		if (JSONFile.titles[0] == "") {
+			document.getElementById("Titles").innerHTML += "None";
+		} else {
+			for (i = 0; i < JSONFile.titles.length; i++) {
+				document.getElementById("Titles").innerHTML += JSONFile.titles[i] + "<br>";
+			}
+		}
+		document.getElementById("Aliases").innerHTML = "Alias(es): <br>";
+		if (JSONFile.aliases[0]== "") {
+			document.getElementById("Aliases").innerHTML += "None";
+		} else {
+			for (i = 0; i < JSONFile.aliases.length; i++) {
+				document.getElementById("Aliases").innerHTML += JSONFile.aliases[i] + "<br>";
+			}
+		}
+		document.getElementById("Actor").innerHTML = "Actor: <br>";
+		document.getElementById("Actor").innerHTML += JSONFile.playedBy;
+
+	}
+	</script>
+</head>
+<body>
+	<h1>Api Fun: Using a Game of Thrones API!</h1>
+	<h2>Get a Random Quote, or a Bunch From One Character!</h2>
+	<button onclick="getQuote()"> Get a Random Quote!</button>
+	<br>
+	<form id = "specifySpeaker">
+		<select id = "speaker">
+			<option value = "Jon Snow">Jon Snow</option>
+			<option value = "Sansa Stark">Sansa Stark</option>
+			<option value = "Eddard Stark">Eddard Stark</option>
+			<option value = "Catelyn Stark">Catelyn Stark</option>
+			<option value = "Arya Stark">Arya Stark</option>
+			<option value = "Bran Stark">Bran Stark</option>
+			<option value = "Jaime Lannister">Jaime Lannister</option>
+			<option value = "Tyrion Lannister">Tyrion Lannister</option>
+			<option value = "Cersei Lannister">Cersei Lannister</option>
+			<option value = "Tywin Lannister">Tywin Lannister</option>
+			<option value = "Joffrey Baratheon">Joffrey Baratheon</option>
+			<option value = "Aerys II Targaryen">Aerys II Targaryen</option>
+			<option value = "Aemon Targaryen">Aemon Targaryen</option>
+			<option value = "Daenerys Targaryen">Daenerys Targaryen</option>
+			<option value = "Ramsey Bolton">Ramsey Bolton</option>
+			<option value = "Robert Baratheon">Robert Baratheon</option>
+			<option value = "Theon Greyjoy">Theon Greyjoy</option>
+			<option value = "Samwell Tarly">Samwell Tarly</option>
+			<option value = "Lord Varys">Lord Varys</option>
+			<option value = "Brienne of Tharth">Brienne of Tarth</option>
+			<option value = "Petyr Baelish">Petyr Baelish</option>
+			<option value = "Tormund">Tormund</option>
+			<option value = "Melisandre">Melisandre</option>
+			<option value = "Olenna Tyrell">Olenna Tyrell</option>
+			<option value = "Mance Rayder">Mance Rayder</option>
+			<option value = "Ygritte">Ygritte</option>
+		</select>
+		<br>
+	</form>
+	<button onclick="getSpecificQuote()">Get Their Quotes!</button>
+	<br>
+	<div id = "quoteHere"></div>
+	<div id = "author"></div>
+	<h2>Information on Game of Thrones Characters</h2>
+	<form>
+	<select id = "chararcter">
+			<option value = "Jon Snow">Jon Snow</option>
+			<option value = "Sansa Stark">Sansa Stark</option>
+			<option value = "Eddard Stark">Eddard Stark</option>
+			<option value = "Catelyn Stark">Catelyn Stark</option>
+			<option value = "Arya Stark">Arya Stark</option>
+			<option value = "Bran Stark">Bran Stark</option>
+			<option value = "Jaime Lannister">Jaime Lannister</option>
+			<option value = "Tyrion Lannister">Tyrion Lannister</option>
+			<option value = "Cersei Lannister">Cersei Lannister</option>
+			<option value = "Tywin Lannister">Tywin Lannister</option>
+			<option value = "Joffrey Baratheon">Joffrey Baratheon</option>
+			<option value = "Aerys II Targaryen">Aerys II Targaryen</option>
+			<option value = "Aemon Targaryen">Aemon Targaryen</option>
+			<option value = "Daenerys Targaryen">Daenerys Targaryen</option>
+			<option value = "Ramsey Bolton">Ramsey Bolton</option>
+			<option value = "Robert Baratheon">Robert Baratheon</option>
+			<option value = "Theon Greyjoy">Theon Greyjoy</option>
+			<option value = "Samwell Tarly">Samwell Tarly</option>
+			<option value = "Lord Varys">Lord Varys</option>
+			<option value = "Brienne of Tarth">Brienne of Tarth</option>
+			<option value = "Petyr Baelish">Petyr Baelish</option>
+			<option value = "Tormund">Tormund</option>
+			<option value = "Melisandre">Melisandre</option>
+			<option value = "Olenna Tyrell">Olenna Tyrell</option>
+			<option value = "Mance Rayder">Mance Rayder</option>
+			<option value = "Ygritte">Ygritte</option>
+		</select>
+		<br>
+	</form>
+	<button onclick="getCharacter()">Get Info</button>
+	<div id = "characterInfoHere"></div>
+	<table id = "infoTable">
+  <tr>
+    <td id = "Name"></td>
+    <td id = "Gender"></td>
+	<td id = "Dates"></td>
+  </tr>
+	<tr>
+	<td id = "Titles"></td>
+	<td id = "Aliases"></td>
+	<td id = "Actor"></td>
+  </tr>
+</table>
+</body>
+</html>
